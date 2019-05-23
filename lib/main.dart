@@ -131,29 +131,25 @@ class DetailScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context, false),
         ),
       ),
-      body: ListView(
-              children:[
-                Padding(
-                padding: EdgeInsets.all(20),
-                child:CircleAvatar(
-                  backgroundImage: ExactAssetImage(item.pic),
-                  minRadius: 80,
-                  maxRadius: 140,
-                )),
-                Center(
-                  child:Padding(
-                padding: EdgeInsets.all(20),
-                child:Text(item.name,
-                  style:
-                      TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)))),
-                Padding(
-                padding: EdgeInsets.all(20),
-                child:Text(item.desc,
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(fontSize: 20.0)
-                ))
-              ]
-            )
-      );
-    } 
+      body: ListView(children: [
+        Padding(
+            padding: EdgeInsets.all(40),
+            child: CircleAvatar(
+              backgroundImage: ExactAssetImage(item.pic),
+              minRadius: 80,
+              maxRadius: 140,
+            )),
+        Center(
+            child: Padding(
+                padding: EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 10.0),
+                child: Text(item.name,
+                    style: TextStyle(
+                        fontSize: 30.0, fontWeight: FontWeight.bold)))),
+        Padding(
+            padding: EdgeInsets.fromLTRB(40.0, 10.0, 40.0, 10.0),
+            child: Text(item.desc,
+                textAlign: TextAlign.justify, style: TextStyle(fontSize: 20.0)))
+      ]),
+    );
   }
+}
