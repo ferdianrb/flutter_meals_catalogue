@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meals_catalogue/detail_screen.dart';
 import 'package:meals_catalogue/breakfast_list.dart';
-import 'package:meals_catalogue/desert_list.dart';
+import 'package:meals_catalogue/dessert_list.dart';
 
 void main() {
   runApp(Home());
@@ -22,7 +21,7 @@ class Home extends StatefulWidget {
 
 class _HomeScreen extends State<Home> {
   int _currentIndex = 0;
-  final List<Widget> _children = [Breakfast(), Desert()];
+  final List<Widget> _children = [Breakfast(), Dessert()];
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class _HomeScreen extends State<Home> {
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.local_cafe),
-              title: new Text('Desert'),
+              title: new Text('Dessert'),
             )
           ],
         ),
