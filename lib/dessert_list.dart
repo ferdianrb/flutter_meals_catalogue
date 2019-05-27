@@ -5,7 +5,6 @@ import 'package:meals_catalogue/detail_screen.dart';
 class Dessert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GridView.builder(
       gridDelegate:
           new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

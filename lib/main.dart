@@ -20,8 +20,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeScreen extends State<Home> {
-  int _currentIndex = 0;
-  final List<Widget> _children = [Breakfast(), Dessert()];
 
   @override
   Widget build(BuildContext context) {
@@ -33,39 +31,40 @@ class _HomeScreen extends State<Home> {
         primarySwatch: Colors.red,
         accentColor: Color(0xFF761322),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.settings, color: Colors.white),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        body: _children[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: onTabTapped, // new
-          currentIndex:
-              _currentIndex, // this will be set when a new tab is tapped
-          items: [
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.local_dining),
-              title: new Text('Breakfast'),
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.local_cafe),
-              title: new Text('Dessert'),
-            )
-          ],
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(title),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.settings, color: Colors.white),
+                onPressed: () {},
+              ),
+            ],
+          ),
+          body: TabBarView(
+            children: <Widget>[Breakfast(), Dessert()],
+          ),
+          bottomNavigationBar: TabBar(
+            tabs: <Widget>[
+              Tab(
+                child: Text(
+                  'Breakfast'
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Desert'
+                ),
+              ),
+            ],
+            indicatorColor: Colors.red,
+            labelColor: Colors.red,
+            unselectedLabelColor: Colors.grey,
+          ),
         ),
       ),
     );
-  }
-
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
   }
 }
