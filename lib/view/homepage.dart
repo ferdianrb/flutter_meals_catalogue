@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'breakfast_list.dart';
+import 'seafood_list.dart';
 import 'dessert_list.dart';
 
 void main() {
@@ -8,11 +8,12 @@ void main() {
 
 
 class Home extends StatefulWidget {
+  Home({Key key}) : super(key: key);
   @override
-  _HomeScreen createState() => _HomeScreen();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreen extends State<Home> {
+class _HomeScreenState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +32,13 @@ class _HomeScreen extends State<Home> {
             ],
           ),
           body: TabBarView(
-            children: <Widget>[Breakfast(), Dessert()],
+            children: <Widget>[Seafood(), Dessert()],
           ),
           bottomNavigationBar: TabBar(
             tabs: <Widget>[
               Tab(
                 child: Text(
-                  'Breakfast'
+                  'Seafood'
                 ),
               ),
               Tab(

@@ -1,7 +1,10 @@
 class Food {
-  final String name;
-  final String pic;
-  final String desc;
+  final String idMeal;
+  final String strMeal;
+  final String strMealThumb;
 
-  Food({this.name, this.pic, this.desc});
+  Food(this.idMeal, this.strMeal, this.strMealThumb);
+  factory Food.fromJson(Map<String, dynamic> json) {
+    return Food(json['idMeal'], json['strMeal'], json['strMealThumb']);
+  }
 }

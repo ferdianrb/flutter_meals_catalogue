@@ -1,10 +1,57 @@
 import 'package:flutter/material.dart';
-import '../data/dessert.dart';
+import 'package:meals_catalogue/model/food.dart';
 import 'detail_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class Dessert extends StatelessWidget {
+class Dessert extends StatefulWidget {
+  Dessert({Key key}) : super(key: key);
+  @override
+  _DessertState createState() => _DessertState();
+}
+
+class _DessertState extends State<Dessert> {
+  List<Food> dessert = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadDessertData();
+  }
+
+  loadDessertData() async {
+    String dataUrl =
+        "https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert";
+
+    http.Response response = await http.get(dataUrl);
+
+    var responseJson = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      setState(() {
+        dessert = (responseJson['meals'] as List)
+            .map((p) => Food.fromJson((p)))
+            .toList();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    return GetBody();
+  }
+
+  GetBody() {
+    if (dessert.length == 0) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      return getGridView();
+    }
+  }
+
+  getGridView() {
     return GridView.builder(
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -26,7 +73,7 @@ class Dessert extends StatelessWidget {
               );
               final snackBar = SnackBar(
                 duration: Duration(seconds: 1),
-                content: Text(dessert[index].name),
+                content: Text(dessert[index].strMeal),
                 action: SnackBarAction(
                   textColor: Colors.blue,
                   label: 'Close',
@@ -40,9 +87,9 @@ class Dessert extends StatelessWidget {
                 AspectRatio(
                   aspectRatio: 18.0 / 14.0,
                   child: Hero(
-                    tag: dessert[index].pic,
-                    child: Image.asset(
-                      dessert[index].pic,
+                    tag: dessert[index].idMeal,
+                    child: Image.network(
+                      dessert[index].strMealThumb,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -50,9 +97,9 @@ class Dessert extends StatelessWidget {
                 Expanded(
                   child: Center(
                     child: Text(
-                      dessert[index].name,
+                      dessert[index].strMeal,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                      style: TextStyle(color: Colors.white, fontSize: 15.0),
                     ),
                   ),
                 ),
