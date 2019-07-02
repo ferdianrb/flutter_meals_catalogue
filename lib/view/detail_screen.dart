@@ -61,6 +61,12 @@ class _DetailScreenState extends State<DetailScreen> {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context, false),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.favorite, color: Colors.white),
+            onPressed: () {},
+          )
+        ],
       ),
       body: getBody(),
     );
@@ -157,7 +163,7 @@ class _DetailScreenState extends State<DetailScreen> {
     }
     return childrenTexts;
   }
-  
+
   void showSnackbar(String value) {
     final snackbar = SnackBar(
       content: Text(value),
