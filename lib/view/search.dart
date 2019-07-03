@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:meals_catalogue/model/food_detail.dart';
 import '../model/food.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'detail_screen.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   TextEditingController _search;
-  List<FoodDetail> detail = [];
+  List<Food> detail = [];
   Widget list;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -28,14 +29,65 @@ class _SearchState extends State<Search> {
     if (response.statusCode == 200) {
       setState(() {
         detail = (responseJson['meals'] as List)
-            .map((p) => FoodDetail.fromJson((p)))
+            .map((p) => Food.fromJson((p)))
             .toList();
         print("detail ${detail.length}");
-        list = ListView.builder(
+        list = GridView.builder(
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemCount: detail.length,
           itemBuilder: (context, item) {
             print("item $item");
-            return Text("tes");
+            return Card(
+              margin: EdgeInsets.all(10.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              color: Colors.grey,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailScreen(item: detail[item]),
+                    ),
+                  );
+                  final snackBar = SnackBar(
+                    duration: Duration(seconds: 1),
+                    content: Text(detail[item].strMeal),
+                    action: SnackBarAction(
+                      textColor: Colors.blue,
+                      label: 'Close',
+                      onPressed: () {},
+                    ),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+                child: Column(
+                  children: <Widget>[
+                    AspectRatio(
+                      aspectRatio: 18.0 / 14.0,
+                      child: Hero(
+                        tag: detail[item].idMeal,
+                        child: Image.network(
+                          detail[item].strMealThumb,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          detail[item].strMeal,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 15.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
           },
         );
       });
@@ -51,6 +103,7 @@ class _SearchState extends State<Search> {
 
   @override
   void initState() {
+    getBody();
     _search = TextEditingController();
     super.initState();
   }
@@ -75,7 +128,7 @@ class _SearchState extends State<Search> {
           )
         ],
       ),
-      body: getBody(),
+      body: list,
     );
   }
 }
