@@ -4,16 +4,21 @@ import 'package:meals_catalogue/model/food_detail.dart';
 import '../model/food.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:meals_catalogue/handler/database_handler.dart';
 
 class DetailScreen extends StatefulWidget {
-  final Food item;
-  DetailScreen({Key key, this.item}) : super(key: key);
+  final String idMeal;
+  DetailScreen({Key key, this.idMeal}) : super(key: key);
   @override
   _DetailScreenState createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  FoodDetail fd = FoodDetail();
   List<FoodDetail> detail = [];
+  DatabaseHelper db;
+  Widget iconFav;
+  IconData _isFav;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -30,8 +35,10 @@ class _DetailScreenState extends State<DetailScreen> {
     //             ),
     //   );
     // });
+    db = DatabaseHelper();
+    iconFav = Container();
     super.initState();
-    fetchFoodDetail(widget.item.idMeal);
+    fetchFoodDetail(widget.idMeal);
   }
 
   fetchFoodDetail(String idMeal) async {
@@ -48,7 +55,62 @@ class _DetailScreenState extends State<DetailScreen> {
             .map((p) => FoodDetail.fromJson((p)))
             .toList();
       });
+      isFavorite(idMeal);
     }
+  }
+
+  void isFav(String idMeal) async {
+    db.searchFavoriteById(idMeal).then((i) {
+      if (i.length > 0) {
+        setState(() {
+          db.delFavorite(idMeal);
+          _isFav = Icons.favorite_border;
+          iconFav = IconButton(
+            icon: Icon(_isFav, color: Colors.white),
+            onPressed: () {
+              isFav(idMeal);
+            },
+          );
+        });
+      } else {
+        db.addFavorite(detail);
+        _isFav = Icons.favorite;
+        setState(() {
+          iconFav = IconButton(
+            icon: Icon(_isFav, color: Colors.white),
+            onPressed: () {
+              isFav(idMeal);
+            },
+          );
+        });
+      }
+    });
+  }
+
+  void isFavorite(String idMeal) async {
+    db.searchFavoriteById(idMeal).then((i) {
+      if (i.length > 0) {
+        setState(() {
+          _isFav = Icons.favorite;
+          iconFav = IconButton(
+            icon: Icon(_isFav, color: Colors.white),
+            onPressed: () {
+              isFav(idMeal);
+            },
+          );
+        });
+      } else {
+        _isFav = Icons.favorite_border;
+        setState(() {
+          iconFav = IconButton(
+            icon: Icon(_isFav, color: Colors.white),
+            onPressed: () {
+              isFav(idMeal);
+            },
+          );
+        });
+      }
+    });
   }
 
   @override
@@ -61,12 +123,7 @@ class _DetailScreenState extends State<DetailScreen> {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context, false),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.favorite, color: Colors.white),
-            onPressed: () {},
-          )
-        ],
+        actions: <Widget>[iconFav],
       ),
       body: getBody(),
     );
@@ -78,7 +135,7 @@ class _DetailScreenState extends State<DetailScreen> {
         child: CircularProgressIndicator(),
       );
     } else {
-      showSnackbar(widget.item.strMeal);
+      showSnackbar(detail[0].strMeal);
       return getDetailedFood();
     }
   }

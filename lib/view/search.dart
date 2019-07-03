@@ -49,7 +49,7 @@ class _SearchState extends State<Search> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailScreen(item: detail[item]),
+                      builder: (context) => DetailScreen(idMeal: detail[item].idMeal),
                     ),
                   );
                   final snackBar = SnackBar(
@@ -94,16 +94,9 @@ class _SearchState extends State<Search> {
     }
   }
 
-  Widget getBody() {
-    setState(() {
-      list = Text("tester");
-    });
-    return list;
-  }
-
   @override
   void initState() {
-    getBody();
+    list = Container();
     _search = TextEditingController();
     super.initState();
   }

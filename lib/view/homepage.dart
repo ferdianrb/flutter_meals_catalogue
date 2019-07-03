@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'seafood_list.dart';
 import 'dessert_list.dart';
 import 'search.dart';
+import 'favorite_list.dart';
 
 void main() {
   runApp(Home());
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<Home> {
           ],
         ),
         body: TabBarView(
-          children: <Widget>[Seafood(), Dessert(),Dessert()],
+          children: <Widget>[Seafood(), Dessert(),Favorite()],
         ),
         bottomNavigationBar: TabBar(
           tabs: <Widget>[

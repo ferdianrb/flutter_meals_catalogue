@@ -1,8 +1,10 @@
+import 'package:meals_catalogue/handler/database_handler.dart';
 class FoodDetail {
   String idMeal;
   String strMeal;
   String strMealThumb;
   String strInstructions;
+  String strCategory;
   List<String> strIngredients;
 
   FoodDetail(
@@ -10,7 +12,8 @@ class FoodDetail {
       this.strMeal,
       this.strMealThumb,
       this.strInstructions,
-      this.strIngredients});
+      this.strIngredients,
+      this.strCategory});
   factory FoodDetail.fromJson(Map<String, dynamic> json) {
     List<String> ingredients = List<String>();
     for (int i = 1; i <= 20; i++) {
@@ -26,6 +29,15 @@ class FoodDetail {
         strMeal: json['strMeal'] as String,
         strMealThumb: json['strMealThumb'] as String,
         strInstructions: json['strInstructions'] as String,
-        strIngredients: ingredients);
+        strIngredients: ingredients,
+        strCategory: json['strCategory']);
+  }
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
+      // DatabaseHelper.columnId: id,
+      DatabaseHelper.columnIdMeal: idMeal,
+      DatabaseHelper.columnCategoryMeal: strCategory
+    };
+    return map;
   }
 }

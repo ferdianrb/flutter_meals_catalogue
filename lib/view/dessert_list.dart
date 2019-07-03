@@ -68,7 +68,7 @@ class _DessertState extends State<Dessert> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailScreen(item: dessert[index]),
+                  builder: (context) => DetailScreen(idMeal: dessert[index].idMeal),
                 ),
               );
               final snackBar = SnackBar(

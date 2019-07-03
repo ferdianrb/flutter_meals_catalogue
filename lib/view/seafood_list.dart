@@ -67,7 +67,7 @@ class _SeafoodState extends State<Seafood> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailScreen(item: seafood[index]),
+                  builder: (context) => DetailScreen(idMeal: seafood[index].idMeal),
                 ),
               );
               final snackBar = SnackBar(
