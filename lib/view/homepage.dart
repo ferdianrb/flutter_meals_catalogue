@@ -49,16 +49,16 @@ class _HomeScreenState extends State<Home> {
           tabs: <Widget>[
             Tab(
               child: Column(
-              children: [Icon(Icons.adb), Text('Seafood')],
+              children: [Icon(Icons.adb), Text('Seafood', key: Key('seafood'),)],
             )
             ),
             Tab(
                 child: Column(
-              children: [Icon(Icons.fastfood), Text('Desert')],
+              children: [Icon(Icons.fastfood), Text('Dessert', key: Key('dessert'),)],
             )),
             Tab(
                 child: Column(
-              children: [Icon(Icons.favorite), Text('Favorite')],
+              children: [Icon(Icons.favorite), Text('Favorite', key: Key('favorite'))],
             )),
           ],
           indicatorColor: Colors.red,
