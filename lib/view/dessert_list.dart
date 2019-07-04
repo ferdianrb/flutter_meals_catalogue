@@ -10,6 +10,18 @@ class Dessert extends StatefulWidget {
   _DessertState createState() => _DessertState();
 }
 
+Future<Food> fetchDessert(http.Client client) async {
+  String dataUrl =
+        "https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert";
+
+  final response = await client.get(dataUrl);
+  if(response.statusCode==200){
+    return Food.fromJson(json.decode(response.body));
+  }else {
+    throw Exception('Gagal menampilkan data');
+  }
+}
+
 class _DessertState extends State<Dessert> {
   List<Food> dessert = [];
 
