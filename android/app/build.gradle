@@ -40,7 +40,24 @@ android {
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
+    flavorDimensions "app"
+    productFlavors {
+    
+    app1 {
+        dimension "app"
+        applicationId "com.example.mealscatalogue.release"
+        versionCode 1
+        versionName "1.0"
+    }
+    
+    app2 {
+        dimension "app"
+        applicationId "com.example.mealscatalogue.debug"
+        versionCode 1
+        versionName "1.0"
+        }
+    }
+ 
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.

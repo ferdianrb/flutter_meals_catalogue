@@ -3,6 +3,7 @@ import 'seafood_list.dart';
 import 'dessert_list.dart';
 import 'search.dart';
 import 'favorite_list.dart';
+import 'package:meals_catalogue/app_config.dart';
 
 void main() {
   runApp(Home());
@@ -17,13 +18,13 @@ class Home extends StatefulWidget {
 class _HomeScreenState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    final title = 'Meals Catalogue';
-
+    // final title = 'Meals Catalogue';
+    var config = AppConfig.of(context);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(config.appDisplayName),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search, color: Colors.white),
