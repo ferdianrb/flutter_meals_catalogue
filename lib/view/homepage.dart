@@ -30,11 +30,11 @@ class _HomeScreenState extends State<Home> {
               icon: Icon(Icons.search, color: Colors.white),
               onPressed: () {
                 Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Search(),
-                ),
-              );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Search(),
+                  ),
+                );
               },
             ),
             IconButton(
@@ -44,23 +44,40 @@ class _HomeScreenState extends State<Home> {
           ],
         ),
         body: TabBarView(
-          children: <Widget>[Seafood(), Dessert(),Favorite()],
+          children: <Widget>[Seafood(), Dessert(), Favorite()],
         ),
         bottomNavigationBar: TabBar(
           tabs: <Widget>[
             Tab(
-              child: Column(
-              children: [Icon(Icons.adb), Text('Seafood', key: Key('seafood'),)],
-            )
-            ),
-            Tab(
+                key: Key("tab_seafood"),
                 child: Column(
-              children: [Icon(Icons.fastfood), Text('Dessert', key: Key('dessert'),)],
-            )),
+                  children: [
+                    Icon(Icons.adb),
+                    Text(
+                      'Seafood',
+                      key: Key('seafood'),
+                    )
+                  ],
+                )),
             Tab(
+                key: Key("tab_dessert"),
                 child: Column(
-              children: [Icon(Icons.favorite), Text('Favorite', key: Key('favorite'))],
-            )),
+                  children: [
+                    Icon(Icons.fastfood),
+                    Text(
+                      'Dessert',
+                      key: Key('dessert'),
+                    )
+                  ],
+                )),
+            Tab(
+                key: Key("tab_favorite"),
+                child: Column(
+                  children: [
+                    Icon(Icons.favorite),
+                    Text('Favorite', key: Key('favorite'))
+                  ],
+                )),
           ],
           indicatorColor: Colors.red,
           labelColor: Colors.red,

@@ -66,6 +66,7 @@ class _DetailScreenState extends State<DetailScreen> {
           db.delFavorite(idMeal);
           _isFav = Icons.favorite_border;
           iconFav = IconButton(
+            key: Key('add_fav'),
             icon: Icon(_isFav, color: Colors.white),
             onPressed: () {
               isFav(idMeal);
@@ -223,6 +224,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   void showSnackbar(String value) {
     final snackbar = SnackBar(
+      key: Key("detail_screen"),
       content: Text(value),
       action: SnackBarAction(
         textColor: Colors.blue,

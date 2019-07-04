@@ -63,6 +63,7 @@ class _SeafoodState extends State<Seafood> {
           ),
           color: Colors.grey,
           child: GestureDetector(
+            key: Key("detail_seafood$index"),
             onTap: () {
               Navigator.push(
                 context,
