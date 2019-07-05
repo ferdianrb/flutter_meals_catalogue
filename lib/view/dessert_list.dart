@@ -76,7 +76,7 @@ class _DessertState extends State<Dessert> {
           ),
           color: Colors.grey,
           child: GestureDetector(
-            key: Key("detail_food$index"),
+            key: Key("detail_dessert$index"),
             onTap: () {
               Navigator.push(
                 context,

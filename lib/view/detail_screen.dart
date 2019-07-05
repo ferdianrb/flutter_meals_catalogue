@@ -78,7 +78,7 @@ class _DetailScreenState extends State<DetailScreen> {
           db.delFavorite(idMeal);
           _isFav = Icons.favorite_border;
           iconFav = IconButton(
-            key: Key('add_fav'),
+            tooltip: "add_fav",
             icon: Icon(_isFav, color: Colors.white),
             onPressed: () {
               isFav(idMeal);
@@ -133,6 +133,7 @@ class _DetailScreenState extends State<DetailScreen> {
       appBar: AppBar(
         title: Text('Food Detail'),
         leading: IconButton(
+          tooltip: "back",
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context, false),
         ),

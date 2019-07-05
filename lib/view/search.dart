@@ -45,6 +45,7 @@ class _SearchState extends State<Search> {
             .toList();
         print("detail ${detail.length}");
         list = GridView.builder(
+          key: Key("food_list"),
           gridDelegate:
               SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemCount: detail.length,
@@ -119,6 +120,7 @@ class _SearchState extends State<Search> {
       key: scaffoldKey,
       appBar: AppBar(
         title: TextField(
+          key: Key("search_input"),
           controller: _search,
           onEditingComplete: fetchFoodDetail,
         ),

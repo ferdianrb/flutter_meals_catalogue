@@ -27,7 +27,8 @@ class _HomeScreenState extends State<Home> {
           title: Text(config.appDisplayName),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.search, color: Colors.white),
+              tooltip: "search",
+              icon: Icon(Icons.search, color: Colors.white,),
               onPressed: () {
                 Navigator.push(
                   context,
