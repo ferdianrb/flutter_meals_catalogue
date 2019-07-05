@@ -6,6 +6,18 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:meals_catalogue/handler/database_handler.dart';
 
+Future<FoodDetail> fetchMealsDetail(http.Client client, String idMeal) async {
+  String dataUrl =
+        "https://www.themealdb.com/api/json/v1/1/lookup.php?i=$idMeal";
+
+  final response = await client.get(dataUrl);
+  if(response.statusCode==200){
+    return FoodDetail.fromJson(json.decode(response.body));
+  }else {
+    throw Exception('Gagal menampilkan data');
+  }
+}
+
 class DetailScreen extends StatefulWidget {
   final String idMeal;
   DetailScreen({Key key, this.idMeal}) : super(key: key);

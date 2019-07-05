@@ -6,6 +6,18 @@ import 'dart:convert';
 
 import 'detail_screen.dart';
 
+Future<Food> fetchMealsSearch(http.Client client, String idMeal) async {
+  String dataUrl =
+        "https://www.themealdb.com/api/json/v1/1/search.php?s=$idMeal";
+
+  final response = await client.get(dataUrl);
+  if(response.statusCode==200){
+    return Food.fromJson(json.decode(response.body));
+  }else {
+    throw Exception('Gagal menampilkan data');
+  }
+}
+
 class Search extends StatefulWidget {
   @override
   _SearchState createState() => _SearchState();
